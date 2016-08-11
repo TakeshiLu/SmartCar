@@ -6,11 +6,12 @@
 	<!--<link rel="stylesheet" href="style.css">-->
 	<script src="./socket.io/socket.io.js"></script>
 </head>
-<body>
-	<h1>Hello，歡迎光臨！</h1>
-	<h3>想要租用多久？</h3>
+<body bgcolor="black">
+	<h1 ><FONT COLOR="white">	Hello，歡迎光臨！</FONT></h1>
+	<h3><FONT COLOR="white">想要租用多久？</FONT></h3>
 	<form>
 		<select id="rentingTime">
+	　		<option value="10sec">10 秒鐘</option>
 	　		<option value="30sec">30 秒鐘</option>
 	　		<option value="1min">1 分鐘</option>
 	　		<option value="5min">5 分鐘</option>
@@ -31,12 +32,15 @@
 
 		switch(indexOfSelection) {
 			case 0:
-				millisecond = "30000";
+				millisecond = "10000";
 				break;
 			case 1:
-				millisecond = "60000";
+				millisecond = "30000";
 				break;
 			case 2:
+				millisecond = "60000";
+				break;
+			case 3:
 				millisecond = "300000";
 				break;
 			default:
@@ -44,9 +48,9 @@
 
 		}
 
-		// var socket = io.connect('http://192.168.43.173:1337');
-		var socket = io.connect('http://192.168.43.28:1337');
-		// var socket = io.connect('http://127.0.0.1:1336');
+		//var socket = io.connect('http://192.168.43.173:1337');
+		// var socket = io.connect('http://192.168.43.28:1337');
+		var socket = io.connect('http://127.0.0.1:1337');
 		socket.on('news', function (data) {
 			console.log(data);
 			// socket.emit('my other event', { my: 'data' });
