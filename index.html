@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>gogorock租車</title>
+	<!--<link rel="stylesheet" href="style.css">-->
+	<script src="./socket.io/socket.io.js"></script>
+</head>
+<body>
+	<h1>Hello，歡迎光臨！</h1>
+	<h3>想要租用多久？</h3>
+	<form>
+		<select id="rentingTime">
+	　		<option value="30sec">30 秒鐘</option>
+	　		<option value="1min">1 分鐘</option>
+	　		<option value="5min">5 分鐘</option>
+	　		<option value="10min">10 分鐘</option>
+		</select>
+	</form>
+
+	<button type="button" onclick="rentGogoro()">租!!!</button>
+
+
+
+
+	<script>
+	function rentGogoro() {
+		var selection = document.getElementById("rentingTime");
+		var indexOfSelection = selection.selectedIndex;
+		var millisecond;
+
+		switch(indexOfSelection) {
+			case 0:
+				millisecond = "30000";
+				break;
+			case 1:
+				millisecond = "60000";
+				break;
+			case 2:
+				millisecond = "300000";
+				break;
+			default:
+				millisecond = "600000";
+
+		}
+
+		// var socket = io.connect('http://192.168.43.173:1337');
+		var socket = io.connect('http://192.168.43.28:1337');
+		// var socket = io.connect('http://127.0.0.1:1336');
+		socket.on('news', function (data) {
+			console.log(data);
+			// socket.emit('my other event', { my: 'data' });
+			if (data === 'TRUE') {
+				//OK
+			};
+			if (data === 'hi') {
+				var dataObj = {renter:"some adress", mSec:millisecond};
+				socket.emit('event_renting', dataObj);
+			};
+  		});
+  		socket.on("return gogoro",function(data){
+  			console.log(data)
+  		})
+	}
+	</script>
+</body>
+</html>
+
