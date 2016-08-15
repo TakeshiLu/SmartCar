@@ -5,8 +5,8 @@ var io = require('socket.io')(server);
 var five = require("johnny-five");
 
 var board  = new five.Board({
-	//port : "/dev/ttyACM0",
-	port : "COM4",
+	port : "/dev/ttyACM0",
+	//port : "COM4",
 	repl : false
 });
 
@@ -30,8 +30,6 @@ var isTimeout=true,isReturn=true;
 server.listen(process.env.PORT || 1337, function(){
 	console.log('listening on *:1337');
 });
-
-
 
 board.on("ready", function() {
 	console.log ("board ready");
@@ -100,7 +98,6 @@ board.on("ready", function() {
 			
 			//時間到時自動還車
 			if(isTimeout){
-				// returnGogoro(socket);
 				returnGogoro(socketForuse);
 			}
 		}
@@ -111,7 +108,6 @@ board.on("ready", function() {
 		console.log("Press returnButton");
 		if(!isReturn&&ledObject.engineLedState === "off"){
 			lock();
-			// returnGogoro(socket);
 			returnGogoro(socketForuse);
 			clearTimeout(timer);
 		}
